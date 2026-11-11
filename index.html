@@ -1,89 +1,50 @@
-
 <!doctype html>
 <html lang="ro">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Audio Converter</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Audio Converter - conversie audio locală în browser">
+  <title>Audio Converter</title>
 </head>
-
 <body>
-<main class="app">
+  <main class="app">
+    <header>
+      <h1>AUDIO CONVERTER</h1>
+      <p>scris, proiectat si executat de Diac Rihard Clement Ciprian V.1</p>
+    </header>
 
-<header>
-<h1>AUDIO CONVERTER</h1>
-<p>scris, proiectat si executat de Diac Rihard Clement Ciprian V.1</p>
-</header>
+    <section>
+      <h2>1. SELECT AUDIO FILE</h2>
+      <input id="file" type="file" accept="audio/*,.wav,.flac,.aiff,.aif,.mp3,.m4a,.aac,.ogg,.wma,.opus,.ape,.wv">
+      <p id="fileInfo">Choose an audio file from your device...</p>
+    </section>
 
-<section>
-<h2>1. SELECT AUDIO FILE</h2>
-<input id="file" type="file" accept="audio/*,.wav,.flac,.aiff,.aif,.mp3,.m4a,.aac,.ogg,.wma,.opus,.ape,.wv">
-<p id="fileInfo">Choose an audio file from your device...</p>
-</section>
+    <section>
+      <h2>2. OUTPUT FORMAT</h2>
+      <select id="format">
+        <option>MP3</option><option>WAV</option><option>FLAC</option><option>AAC</option>
+      </select>
+    </section>
 
-<section>
-<h2>2. OUTPUT FORMAT</h2>
-<select id="format">
-<option>MP3</option>
-<option>WAV</option>
-<option>FLAC</option>
-<option>AAC</option>
-</select>
-</section>
+    <section>
+      <h2>3. FORMAT SETTINGS</h2>
+      <div id="settings"></div>
+    </section>
 
-<section>
-<h2>3. FORMAT SETTINGS</h2>
-<div id="settings"></div>
-</section>
+    <section>
+      <h2>4. OUTPUT DESTINATION</h2>
+      <p>Fișierul rezultat va fi descărcat prin browser, pe dispozitivul tău.</p>
+    </section>
 
-<section>
-<h2>4. OUTPUT DESTINATION</h2>
-<p>Fișierul rezultat va fi descărcat prin browser, pe dispozitivul tău.</p>
-</section>
-
-<button id="convert" disabled>CONVERT</button>
-
-<div class="progressHead">
-<b>CONVERSION PROGRESS</b>
-<b id="percent">0%</b>
-</div>
-
-<progress id="progress" max="100" value="0"></progress>
-
-<div class="bottom">
-<span id="status">Se încarcă motorul de conversie...</span>
-<button id="cancel" disabled>CANCEL</button>
-</div>
-
-<p class="note">
-Conversia se execută local în browser.
-Fișierele audio nu sunt încărcate pe un server.
-</p>
-
-</main>
-
-<!-- FFmpeg WebAssembly -->
-<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
-
-<!-- Înlocuitor pentru funcția toBlobURL din FFmpegUtil -->
-<script>
-window.FFmpegUtil = {
-    toBlobURL: async function(url, mimeType) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Nu s-a putut descărca: " + url);
-        }
-        const data = await response.blob();
-        return URL.createObjectURL(
-            new Blob([data], { type: mimeType })
-        );
-    }
-};
-</script>
-
-<!-- Aplicația -->
-<script src="app.js"></script>
-
+    <button id="convert" disabled>CONVERT</button>
+    <div class="progressHead"><b>CONVERSION PROGRESS</b><b id="percent">0%</b></div>
+    <progress id="progress" max="100" value="0"></progress>
+    <div class="bottom">
+      <span id="status">Se încarcă motorul de conversie...</span>
+      <button id="cancel" disabled>CANCEL</button>
+    </div>
+    <p class="note">Conversia se execută local în browser. Fișierele audio nu sunt încărcate pe un server.</p>
+  </main>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
